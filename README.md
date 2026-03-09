@@ -1,13 +1,9 @@
 # FL UI Addons
 
-If you enjoy this project, consider supporting me on Patreon!
-<p align="left">
-  <a href="https://www.patreon.com/c/Machinedelusions">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Patreon_logo.svg" width="150px" alt="Patreon">
-  </a>
-</p>
-
 UI enhancements for ComfyUI that restore and improve canvas interaction workflows. All features can be individually toggled on/off from the sidebar settings panel.
+
+[![Patreon](https://img.shields.io/badge/Patreon-Support%20Me-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/Machinedelusions)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/filliptm/ComfyUI_FL-UI-Addons)
 
 ## Features
 
