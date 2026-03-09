@@ -1,6 +1,6 @@
-# FL Search Box
+# FL UI Addons
 
-Restores and enhances the legacy node search experience in ComfyUI.
+UI enhancements for ComfyUI that restore and improve canvas interaction workflows.
 
 ## Features
 
@@ -10,18 +10,19 @@ Restores and enhances the legacy node search experience in ComfyUI.
 | **Force Legacy Search** | Double-clicking empty canvas always opens the legacy litegraph search box, even when `Comfy.NodeSearchBoxImpl` is set to `"default"`. |
 | **Taller Results List** | The legacy search box results area is expanded from the default 200px to 70% of the viewport height, showing significantly more nodes at a glance. |
 | **Escape to Close** | Press `Escape` to dismiss the connection menu — no need to click off. |
+| **Link Cutting** | Hold `Shift` and drag across the canvas to draw a red dotted line that severs any connections it crosses. Supports undo with `Ctrl+Z`. |
 
 ## Installation
 
 ### ComfyUI Manager
 
-Search for **"FL Search Box"** in ComfyUI Manager and click Install.
+Search for **"FL UI Addons"** in ComfyUI Manager and click Install.
 
 ### Manual
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/filliptm/ComfyUI_FL-SearchBox.git comfyui-fl-searchbox
+git clone https://github.com/filliptm/ComfyUI_FL-UI-Addons.git comfyui-fl-ui-addons
 ```
 
 Restart ComfyUI. No Python dependencies required.
@@ -32,6 +33,7 @@ ComfyUI's frontend moved away from the legacy type-filtered connection menu in f
 
 - **Link drops** are intercepted by patching `linkConnector.dropOnNothing`, bypassing the Vue routing layer entirely.
 - **Double-clicks** are intercepted via a capture-phase listener on `litegraph:canvas` events, firing before the Vue handler.
+- **Link cutting** uses capture-phase pointer event listeners on `document` to intercept Shift+drag before litegraph processes it, then tests intersection against rendered link `Path2D` objects.
 
 ## License
 

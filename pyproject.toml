@@ -1,14 +1,14 @@
 [project]
-name = "comfyui-fl-searchbox"
-description = "Restores and enhances the legacy node search experience in ComfyUI. Shows a type-filtered connection menu when dropping links on the canvas, forces the legacy search box on double-click regardless of settings, and increases the search results display height."
-version = "1.0.0"
+name = "comfyui-fl-ui-addons"
+description = "UI enhancements for ComfyUI: type-filtered connection menu on link drop, forced legacy search box, taller search results, and shift+drag link cutting."
+version = "1.1.0"
 license = { text = "MIT" }
 dependencies = []
 
 [project.urls]
-Repository = "https://github.com/filliptm/ComfyUI_FL-SearchBox"
+Repository = "https://github.com/filliptm/ComfyUI_FL-UI-Addons"
 
 [tool.comfy]
 PublisherId = "machinedelusions"
-DisplayName = "FL Search Box"
+DisplayName = "FL UI Addons"
 Icon = ""
