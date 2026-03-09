@@ -1,6 +1,6 @@
 # FL UI Addons
 
-UI enhancements for ComfyUI that restore and improve canvas interaction workflows.
+UI enhancements for ComfyUI that restore and improve canvas interaction workflows. All features can be individually toggled on/off from the sidebar settings panel.
 
 ## Features
 
@@ -11,6 +11,7 @@ UI enhancements for ComfyUI that restore and improve canvas interaction workflow
 | **Taller Results List** | The legacy search box results area is expanded from the default 200px to 70% of the viewport height, showing significantly more nodes at a glance. |
 | **Escape to Close** | Press `Escape` to dismiss the connection menu — no need to click off. |
 | **Link Cutting** | Hold `Shift` and drag across the canvas to draw a red dotted line that severs any connections it crosses. Supports undo with `Ctrl+Z`. |
+| **Sidebar Settings Panel** | A dedicated sidebar button with per-feature toggles. Each feature can be enabled or disabled independently — settings persist across sessions. |
 
 ## Installation
 
@@ -26,6 +27,17 @@ git clone https://github.com/filliptm/ComfyUI_FL-UI-Addons.git comfyui-fl-ui-add
 ```
 
 Restart ComfyUI. No Python dependencies required.
+
+## Settings
+
+Click the FL UI Addons icon in the sidebar to open the settings panel, or find the settings in ComfyUI's Settings dialog under the `FL UI:` prefix.
+
+| Setting | Default |
+|---------|---------|
+| Connection Menu on Link Drop | On |
+| Force Legacy Search Box | On |
+| Taller Search Results | On |
+| Shift+Drag Link Cutting | On |
 
 ## How It Works
 
