@@ -1,0 +1,6 @@
+.gitignore
+LICENSE
+README.md
+__init__.py
+pyproject.toml
+web/js/fl_searchbox.js
