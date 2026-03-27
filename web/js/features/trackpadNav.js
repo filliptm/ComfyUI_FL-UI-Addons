@@ -10,10 +10,6 @@ export function patchTrackpadNav(canvas, canvasEl) {
     document.addEventListener("wheel", (e) => {
         if (!container.contains(e.target)) return;
 
-        // Let scrollable inputs (textareas, text inputs) handle their own scroll
-        const tag = e.target.tagName;
-        if (tag === "TEXTAREA" || tag === "INPUT" || e.target.isContentEditable) return;
-
         if (!e.ctrlKey) {
             // Two-finger scroll → pan the canvas
             e.preventDefault();
