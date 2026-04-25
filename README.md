@@ -2,6 +2,9 @@
 
 UI enhancements for ComfyUI that restore and improve canvas interaction workflows.
 
+[![Patreon](https://img.shields.io/badge/Patreon-Support%20Me-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/Machinedelusions)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/filliptm/ComfyUI_FL-UI-Addons)
+
 ## Features
 
 | Feature | Description |
