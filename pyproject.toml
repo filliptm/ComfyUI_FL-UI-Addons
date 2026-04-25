@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-fl-ui-addons"
 description = "UI enhancements for ComfyUI: type-filtered connection menu on link drop, forced legacy search box, taller search results, and shift+drag link cutting."
-version = "1.1.0"
+version = "1 1 1"
 license = { text = "MIT" }
 dependencies = []
 
@@ -11,4 +11,4 @@ Repository = "https://github.com/filliptm/ComfyUI_FL-UI-Addons"
 [tool.comfy]
 PublisherId = "machinedelusions"
 DisplayName = "FL UI Addons"
-Icon = ""
+Icon = "https://avatars.githubusercontent.com/u/55672949"
