@@ -108,8 +108,125 @@ app.registerExtension({
                     row.appendChild(textDiv);
                     el.appendChild(row);
                 }
+
+                // ── Backend Section ──
+                const divider = document.createElement("div");
+                divider.style.cssText =
+                    "border-top: 1px solid var(--border-color); margin: 18px 0 14px 0;";
+                el.appendChild(divider);
+
+                const backendHeader = document.createElement("div");
+                backendHeader.textContent = "Backend";
+                backendHeader.style.cssText =
+                    "font-size: 0.75em; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--descrip-text); margin-bottom: 10px;";
+                el.appendChild(backendHeader);
+
+                const restartBtn = document.createElement("button");
+                restartBtn.type = "button";
+                restartBtn.textContent = "Restart Backend";
+                restartBtn.style.cssText = [
+                    "width: 100%",
+                    "padding: 9px 12px",
+                    "background: #b91c1c",
+                    "color: #fff",
+                    "border: 1px solid #7f1d1d",
+                    "border-radius: 6px",
+                    "font-weight: 600",
+                    "font-size: 0.9em",
+                    "cursor: pointer",
+                    "transition: background 120ms ease",
+                ].join(";");
+                restartBtn.addEventListener("mouseenter", () => {
+                    if (!restartBtn.disabled) restartBtn.style.background = "#dc2626";
+                });
+                restartBtn.addEventListener("mouseleave", () => {
+                    if (!restartBtn.disabled) restartBtn.style.background = "#b91c1c";
+                });
+
+                const restartHint = document.createElement("div");
+                restartHint.textContent =
+                    "Spawns a new ComfyUI process and exits this one. Any running workflow will be cancelled.";
+                restartHint.style.cssText =
+                    "font-size: 0.78em; color: var(--descrip-text); margin-top: 8px; line-height: 1.35;";
+
+                restartBtn.addEventListener("click", () => runRestart(restartBtn));
+                el.appendChild(restartBtn);
+                el.appendChild(restartHint);
             },
         });
+
+        // ── Restart Helpers ──
+        async function isQueueBusy() {
+            try {
+                const r = await fetch("/queue", { cache: "no-store" });
+                if (!r.ok) return false;
+                const data = await r.json();
+                const running = data?.queue_running?.length ?? 0;
+                const pending = data?.queue_pending?.length ?? 0;
+                return running + pending > 0;
+            } catch {
+                return false;
+            }
+        }
+
+        async function pollServerBackUp(maxWaitMs = 60000) {
+            const start = Date.now();
+            // Give the parent a moment to die first.
+            await new Promise((r) => setTimeout(r, 1500));
+            while (Date.now() - start < maxWaitMs) {
+                try {
+                    const r = await fetch("/system_stats", { cache: "no-store" });
+                    if (r.ok) return true;
+                } catch {
+                    // server still down
+                }
+                await new Promise((r) => setTimeout(r, 1000));
+            }
+            return false;
+        }
+
+        async function runRestart(btn) {
+            const busy = await isQueueBusy();
+            const warn = busy
+                ? "A workflow is currently queued or running. Restarting will cancel it.\n\nContinue?"
+                : "Restart ComfyUI now? Any unsaved canvas state may be lost.";
+            if (!window.confirm(warn)) return;
+
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = "Restarting…";
+            btn.style.background = "#52525b";
+            btn.style.cursor = "wait";
+
+            try {
+                const resp = await fetch("/fl_ui_addons/restart", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: "{}",
+                });
+                if (!resp.ok) {
+                    btn.textContent = `Failed (${resp.status})`;
+                    btn.style.background = "#b91c1c";
+                    btn.disabled = false;
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 4000);
+                    return;
+                }
+            } catch (e) {
+                // Network error after the server died is expected; ignore.
+            }
+
+            btn.textContent = "Waiting for backend…";
+            const ok = await pollServerBackUp();
+            if (ok) {
+                window.location.reload();
+            } else {
+                btn.textContent = "Timed out — refresh manually";
+                btn.style.background = "#b91c1c";
+                btn.disabled = false;
+            }
+        }
 
         // ── Canvas Patching ──
         const patchCanvas = () => {
